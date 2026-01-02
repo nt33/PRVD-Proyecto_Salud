@@ -14,8 +14,11 @@ El proyecto se basa en las siguientes fuentes principales:
   [Datos de población por municipio, desagregados por grupo de edad, sexo, nacionalidad y periodo temporal](https://www.ine.es/jaxiT3/Tabla.htm?t=68535&utm_source=chatgpt.com)
 
 - **Datos abiertos de la Generalitat Valenciana**  
-  - [Delimitaciones municipales y comarcales de la Comunitat Valenciana](https://dadesobertes.gva.es/es/dataset/delimitacion-territorial-municipios-de-la-comunitat-valenciana)
-  - [Localización y características básicas de los centros sanitarios](https://datos.gob.es/es/catalogo/a10002983-registro-autonomico-de-centros-servicios-y-establecimientos-sanitarios-de-la-comunitat-valenciana)
+   - [Delimitaciones municipales y comarcales de la Comunitat Valenciana](https://dadesobertes.gva.es/es/dataset/delimitacion-territorial-municipios-de-la-comunitat-valenciana)
+   - [Sistema Valenciano de Salud – Centros sanitarios](https://dadesobertes.gva.es/es/dataset?q=centros+sanitarios+CV), a partir de la integración de:
+      - Hospitales
+      - Centros de especialidades
+      - Centros de salud
 
 ## Objetivos del proyecto
 
@@ -35,6 +38,8 @@ El proyecto se estructura en varias fases:
 
 1. **Preprocesado de datos**  
    Limpieza, filtrado y transformación individual de los datos demográficos, territoriales y sanitarios mediante notebooks independientes, generando conjuntos de datos procesados por fuente.
+
+   En el caso de los centros sanitarios, se integran tres datasets del Sistema Valenciano de Salud (hospitales, centros de especialidades y centros de salud), que comparten estructura, codificación municipal y sistema de referencia espacial.
 
 2. **Integración de fuentes**  
    Unión de los datasets previamente procesados a nivel municipal, utilizando identificadores geográficos comunes y verificando la coherencia territorial entre las distintas fuentes.
@@ -96,10 +101,20 @@ Los siguientes datasets deben descargarse y guardarse en la carpeta `data/raw/` 
    `data/raw/GVA-municipios-delimitaciones.csv`  
    Fuente: https://terramapas.icv.gva.es/0105_Delimitaciones?request=GetFeature&service=WFS&version=2.0.0&typename=ICV.Municipios&outputformat=csv
 
-3. **Centros sanitarios (GVA – Banco de Datos)**  
-   Descargar los datos de centros sanitarios y guardarlos como:  
-   `data/raw/BancoDeDatos-centros-sanitarios.csv`  
-   Fuente: https://terramapas.icv.gva.es/15_GERCA_wfs?request=GetFeature&service=WFS&version=2.0.0&typename=GERCA.Certificados&outputformat=csv
+3. **Centros sanitarios (Sistema Valenciano de Salud)**  
+   Descargar los siguientes datasets y guardarlos en `data/raw/`:
+
+   - **Hospitales**  
+     `data/raw/GVA-hospitales.csv`  
+     Fuente: https://dadesobertes.gva.es/es/dataset/sistema-valenciano-de-salud-centros-sanitarios-hospitales
+
+   - **Centros de especialidades**  
+     `data/raw/GVA-centros-de-especialidades.csv`  
+     Fuente: https://dadesobertes.gva.es/es/dataset/sistema-valenciano-de-salud-centros-sanitarios-centros-de-especialidades4
+
+   - **Centros de salud**  
+     `data/raw/GVA-centros-de-salud.csv`  
+     Fuente: https://dadesobertes.gva.es/es/dataset/sistema-valenciano-de-salud-centros-sanitarios-centros-de-salud
 
 
 ### 2. Generación de datos procesados e integrados
