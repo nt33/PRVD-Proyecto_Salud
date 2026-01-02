@@ -34,10 +34,10 @@ Los principales objetivos del proyecto son:
 El proyecto se estructura en varias fases:
 
 1. **Preprocesado de datos**  
-   Limpieza, filtrado y transformación de los datos demográficos, territoriales y sanitarios mediante notebooks independientes.
+   Limpieza, filtrado y transformación individual de los datos demográficos, territoriales y sanitarios mediante notebooks independientes, generando conjuntos de datos procesados por fuente.
 
 2. **Integración de fuentes**  
-   Unión de los datasets a nivel municipal utilizando identificadores geográficos comunes.
+   Unión de los datasets previamente procesados a nivel municipal, utilizando identificadores geográficos comunes y verificando la coherencia territorial entre las distintas fuentes.
 
 3. **Análisis estadístico y espacial**  
    Cálculo de indicadores (centros por habitante, población por grupo de edad, etc.) y representación cartográfica.
@@ -48,36 +48,62 @@ El proyecto se estructura en varias fases:
 ## Estructura del repositorio
 ```
 ├── data/
-│ ├── raw/ # Datos originales descargados
-│ ├── processed/ # Datos preprocesados
-├── preprocesado/
-│ ├── datos_poblacion.ipynb # Preprocesado datos INE
-│ ├── datos_municipios.ipynb # Municipios y comarcas
-│ └── datos_centros_sanitorios.ipynb # Centros sanitarios
+│   ├── raw/                # Datos originales (no incluidos)
+│   ├── processed/          # Datos limpios por fuente (no incluidos)
+│   └── integrated/         # Dataset final integrado (no incluido)
+│
+├── 01-preprocesado/
+│   ├── datos_poblacion.ipynb
+│   ├── datos_municipios.ipynb
+│   └── datos_centros_sanitarios.ipynb
+│
+├── 02-integracion/
+│   └── integracion_datasets.ipynb
+│
+├── 03-analisis/
+│   └── analisis_descriptivo.ipynb
+│
 ├── README.md
+└── .gitignore
 ```
+
+> ⚠️ Nota sobre los datos  
+> Ninguna de las carpetas `data/*` se incluye en el repositorio de GitHub. Todos los archivos de datos están excluidos mediante `.gitignore` debido a su tamaño.  
+> El repositorio contiene únicamente el código y los notebooks necesarios para reproducir el proceso de preprocesado, integración y análisis de los datos. La descarga de los conjuntos de datos originales se realiza manualmente siguiendo las instrucciones indicadas en este documento.
+
+
 
 ## Alcance
 
 Este proyecto tiene un enfoque **exploratorio y descriptivo**, orientado al análisis de datos y visualización, y no pretende realizar inferencias causales ni evaluaciones clínicas.
 
 
-## Descarga de datos
+## Descarga y generación de los datos
 
-Para reproducir el proyecto es necesario descargar manualmente los siguientes conjuntos de datos y guardarlos en la carpeta `raw_data`:
+Este repositorio **no incluye ningún archivo de datos**, ni originales ni procesados. Para reproducir el proyecto es necesario descargar manualmente los conjuntos de datos originales y ejecutar los notebooks de preprocesado.
+
+### 1. Descarga de datos originales
+
+Los siguientes datasets deben descargarse y guardarse en la carpeta `data/raw/` con los nombres indicados:
 
 1. **Datos de población (INE)**  
    Descargar los datos de población por municipio, grupo de edad, sexo y nacionalidad desde el INE y guardarlos como:  
-   `raw_data/INE-poblacion-grupo-edad.csv`  
+   `data/raw/INE-poblacion-grupo-edad.csv`  
    Fuente: https://www.ine.es/jaxiT3/files/t/es/csv_bdsc/68535.csv
 
 2. **Delimitaciones municipales (GVA)**  
    Descargar las delimitaciones municipales de la Comunitat Valenciana y guardarlas como:  
-   `raw_data/GVA-municipios-delimitaciones.csv`  
+   `data/raw/GVA-municipios-delimitaciones.csv`  
    Fuente: https://terramapas.icv.gva.es/0105_Delimitaciones?request=GetFeature&service=WFS&version=2.0.0&typename=ICV.Municipios&outputformat=csv
 
 3. **Centros sanitarios (GVA – Banco de Datos)**  
    Descargar los datos de centros sanitarios y guardarlos como:  
-   `raw_data/BancoDeDatos-centros-sanitarios.csv`  
+   `data/raw/BancoDeDatos-centros-sanitarios.csv`  
    Fuente: https://terramapas.icv.gva.es/15_GERCA_wfs?request=GetFeature&service=WFS&version=2.0.0&typename=GERCA.Certificados&outputformat=csv
 
+
+### 2. Generación de datos procesados e integrados
+
+Una vez descargados los datos originales, se deben ejecutar los notebooks disponibles en la carpeta `01-preprocesado/`, que realizan el proceso de limpieza y transformación individual de cada fuente de datos. Posteriormente, la integración de las distintas fuentes se lleva a cabo mediante el notebook disponible en la carpeta `02-integracion/`.
+
+Como resultado, se generan de forma local los datasets procesados por fuente en la carpeta `data/processed/` y el conjunto de datos final integrado en la carpeta `data/integrated/`. Estos archivos **no se versionan ni se suben al repositorio**.
