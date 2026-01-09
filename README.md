@@ -11,7 +11,7 @@ Se combinan datos demográficos a nivel municipal con información geoespacial s
 El proyecto se basa en las siguientes fuentes principales:
 
 - **Instituto Nacional de Estadística (INE)**  
-  [Datos de población por municipio, desagregados por grupo de edad, sexo, nacionalidad y periodo temporal](https://www.ine.es/jaxiT3/Tabla.htm?t=68535&utm_source=chatgpt.com)
+  [Datos de población por municipio, desagregados por grupo de edad, sexo, nacionalidad y periodo temporal](https://www.ine.es/jaxiT3/Tabla.htm?t=68535)
 
 - **Datos abiertos de la Generalitat Valenciana**  
    - [Delimitaciones municipales y comarcales de la Comunitat Valenciana](https://dadesobertes.gva.es/es/dataset/delimitacion-territorial-municipios-de-la-comunitat-valenciana)
